@@ -1,0 +1,7 @@
+{
+  "buildCommand": "echo 'Vercel Static Deployment'",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" }
+  ]
+}
