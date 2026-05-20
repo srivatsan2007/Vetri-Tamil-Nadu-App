@@ -370,56 +370,96 @@
     </div>
 
 </body>
-
 <script>
 
-    const registerBtn =
-        document.getElementById("registerBtn");
+const registerBtn =
+    document.getElementById("registerBtn");
 
-    const popup =
-        document.getElementById("popup");
+const popup =
+    document.getElementById("popup");
 
-    registerBtn.addEventListener("click", () => {
-        const name = document.getElementById("reg-name").value;
-        const email = document.getElementById("reg-email").value;
-        const phone = document.getElementById("reg-phone").value;
-        const password = document.getElementById("reg-password").value;
-        const confirmPass = document.getElementById("reg-confirm").value;
+registerBtn.addEventListener("click", async () => {
 
-        if (!name || !email || !phone || !password || !confirmPass) {
-            alert("Please fill all fields");
-            return;
-        }
+    const name =
+        document.getElementById("reg-name").value;
 
-        if (password !== confirmPass) {
-            alert("Passwords do not match");
-            return;
-        }
+    const email =
+        document.getElementById("reg-email").value;
 
-        fetch('http://localhost:3000/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, phone, password })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert(data.error);
-            } else {
-                popup.style.display = "flex";
-            }
-        })
-        .catch(err => {
-            console.error('Error:', err);
-            alert('An error occurred during registration.');
-        });
-    });
+    const phone =
+        document.getElementById("reg-phone").value;
 
-    function closePopup() {
+    const password =
+        document.getElementById("reg-password").value;
 
-        popup.style.display = "none";
-        window.location.href = "login.html";
+    const confirmPass =
+        document.getElementById("reg-confirm").value;
+
+    if (!name || !email || !phone || !password || !confirmPass) {
+
+        alert("Please fill all fields");
+
+        return;
+
     }
+
+    if (password !== confirmPass) {
+
+        alert("Passwords do not match");
+
+        return;
+
+    }
+
+    try {
+
+        const response = await fetch(
+            "https://vetri-tamil-nadu-app-backend.onrender.com/api/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    phone,
+                    password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        if (data.error) {
+
+            alert(data.error);
+
+        } else {
+
+            popup.style.display = "flex";
+
+        }
+
+    } catch (err) {
+
+        console.error("Error:", err);
+
+        alert("An error occurred during registration.");
+
+    }
+
+});
+
+function closePopup() {
+
+    popup.style.display = "none";
+
+    window.location.href = "login.html";
+
+}
 
 </script>
 
