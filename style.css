@@ -1,0 +1,209 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+    overflow: hidden;
+    background-color: #000000;
+    background-image: url('images/vijay.png');
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* FULL SCREEN */
+.loading-screen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(214, 40, 40, 0.2), rgba(0, 0, 0, 0.4));
+}
+
+.splash-content {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 40px 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    width: 100%;
+    animation: scaleIn 0.8s ease-out forwards;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* LOGO */
+.logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+}
+
+/* TITLE */
+h1 {
+    font-size: 32px;
+    margin: 0 0 15px 0;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* QUOTE */
+.quote {
+    width: 100%;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #ffe9a9;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* LOADER */
+
+.loader {
+
+    width: 260px;
+    height: 12px;
+
+    background: rgba(255, 255, 255, 0.2);
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    margin-top: 10px;
+}
+
+/* LOADER FILL */
+
+.loader-fill {
+
+    height: 100%;
+    width: 0%;
+
+    background: #F4C430;
+
+    border-radius: 30px;
+
+    animation: loading 3s linear infinite;
+}
+
+/* LOADING TEXT */
+
+.loading-text {
+
+    margin-top: 20px;
+
+    font-size: 18px;
+
+    letter-spacing: 1px;
+
+    color: white;
+}
+
+/* FLOATING LOGO */
+
+@keyframes float {
+
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* LOADING ANIMATION */
+
+@keyframes loading {
+
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.vetri-btn {
+    width: 100%;
+    margin-top: 35px;
+    padding: 14px 40px;
+    border: none;
+    outline: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #F4C430, #ffdd57);
+    color: #1E1E1E;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+}
+
+/* HOVER EFFECT */
+
+.vetri-btn:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* CLICK EFFECT */
+
+.vetri-btn:active {
+
+    transform: scale(0.96);
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .vetri-btn {
+
+        font-size: 16px;
+
+        padding: 12px 20px;
+    }
+}
+
+/* TABLET */
+
+@media(min-width:601px) and (max-width:1024px) {
+
+    .vetri-btn {
+
+        max-width: 350px;
+    }
+}

@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vetri Tamil Nadu - Citizen Services</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary: #d62828;
+        --primary-dark: #b81f1f;
+        --accent: #f4c430;
+        --white: #ffffff;
+        --text-dark: #1e1e1e;
+        --text-light: #555555;
+        --bg-color: #f8f9fa;
+        --glass-bg: rgba(255, 255, 255, 0.75);
+        --glass-border: rgba(255, 255, 255, 0.4);
+        --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.05);
+        --shadow-hover: 0 12px 40px rgba(214, 40, 40, 0.15);
+        --filter-bg: rgba(214, 40, 40, 0.1);
+        --card-bg: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.6)
+        );
+      }
+
+      [data-theme="dark"] {
+        --primary: #ef233c;
+        --primary-dark: #d90429;
+        --bg-color: #121212;
+        --text-dark: #f8f9fa;
+        --text-light: #adb5bd;
+        --glass-bg: rgba(30, 30, 30, 0.75);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --card-bg: linear-gradient(
+          145deg,
+          rgba(40, 40, 40, 0.9),
+          rgba(20, 20, 20, 0.6)
+        );
+        --white: #1a1a1a;
+        --filter-bg: rgba(255, 255, 255, 0.1);
+        --shadow-hover: 0 12px 40px rgba(239, 35, 60, 0.2);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Noto Sans Tamil", sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        min-height: 100vh;
+        overflow-x: hidden;
+        padding-bottom: 90px;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+
+      /* Loader */
+      #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-color);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.5s;
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid var(--filter-bg);
+        border-top-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Abstract Background Elements */
+      .bg-shape {
+        position: fixed;
+        filter: blur(90px);
+        border-radius: 50%;
+        z-index: -1;
+        opacity: 0.4;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+      .bg-shape-1 {
+        top: -10%;
+        left: -10%;
+        width: 40vw;
+        height: 40vw;
+        background-color: var(--primary);
+        animation: float 10s ease-in-out infinite alternate;
+      }
+      .bg-shape-2 {
+        bottom: 20%;
+        right: -10%;
+        width: 35vw;
+        height: 35vw;
+        background-color: var(--accent);
+        animation: float 12s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0) scale(1);
+        }
+        100% {
+          transform: translateY(30px) scale(1.1);
+        }
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        box-shadow: var(--shadow-soft);
+        transition: 0.3s;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        background: rgba(var(--bg-color), 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .btn-back {
+        color: var(--text-dark);
+        font-size: 20px;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+      .btn-back:hover {
+        color: var(--primary);
+        transform: translateX(-3px);
+      }
+      .logo {
+        width: 40px;
+        height: auto;
+      }
+      .nav-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .nav-icon {
+        font-size: 20px;
+        color: var(--text-dark);
+        cursor: pointer;
+        transition: 0.3s;
+        position: relative;
+      }
+      .nav-icon:hover {
+        color: var(--primary);
+      }
+
+      /* Toggles */
+      .theme-toggle,
+      .lang-toggle {
+        display: flex;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+        padding: 3px;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+      }
+      [data-theme="dark"] .theme-toggle,
+      [data-theme="dark"] .lang-toggle {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .lang-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-light);
+        border-radius: 18px;
+        transition: 0.3s;
+        z-index: 1;
+        text-align: center;
+        width: 45px;
+      }
+      .lang-btn.active {
+        color: white;
+      }
+      .lang-slider {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        height: calc(100% - 6px);
+        width: 45px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        border-radius: 18px;
+        transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+      .lang-toggle[data-current="ta"] .lang-slider {
+        transform: translateX(45px);
+      }
+
+      /* Hero Section */
+      .hero-section {
+        text-align: center;
+        padding: 50px 20px;
+        margin-bottom: 30px;
+        position: relative;
+      }
+      .hero-title {
+        font-size: 36px;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+        position: relative;
+        display: inline-block;
+      }
+      .hero-title::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50%;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 2px;
+        animation: expandWidth 1s ease forwards;
+      }
+      @keyframes expandWidth {
+        from {
+          width: 0;
+        }
+        to {
+          width: 50%;
+        }
+      }
+      .hero-subtitle {
+        font-size: 16px;
+        color: var(--text-light);
+        margin-bottom: 15px;
+      }
+      .hero-quote {
+        font-size: 14px;
+        font-style: italic;
+        color: var(--primary);
+        font-weight: 500;
+      }
+      .floating-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+      .floating-icons i {
+        position: absolute;
+        font-size: 24px;
+        color: var(--filter-bg);
+        animation: float 6s ease-in-out infinite alternate;
+      }
+
+      /* Search Bar */
+      .search-container {
+        max-width: 600px;
+        margin: 30px auto;
+        display: flex;
+        align-items: center;
+        padding: 5px 20px;
+        border-radius: 30px;
+        border: 2px solid var(--glass-border);
+        transition: 0.3s;
+        background: var(--glass-bg);
+        box-shadow: var(--shadow-soft);
+      }
+      .search-container:focus-within {
+        border-color: var(--primary);
+        box-shadow: 0 0 15px rgba(214, 40, 40, 0.2);
+        transform: scale(1.02);
+      }
+      .search-container i {
+        color: var(--primary);
+        font-size: 18px;
+      }
+      .search-container input {
+        flex: 1;
+        border: none;
+        padding: 15px 15px;
+        font-size: 16px;
+        outline: none;
+        background: transparent;
+        color: var(--text-dark);
+      }
+
+      /* Filters */
+      .filter-container {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        scrollbar-width: none;
+      }
+      .filter-container::-webkit-scrollbar {
+        display: none;
+      }
+      .filter-btn {
+        padding: 8px 20px;
+        border-radius: 20px;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        color: var(--text-dark);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: 0.3s;
+      }
+      .filter-btn:hover {
+        background: var(--filter-bg);
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+      .filter-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        box-shadow: 0 4px 15px rgba(214, 40, 40, 0.3);
+      }
+
+      /* Stats */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .stat-card {
+        padding: 20px;
+        text-align: center;
+      }
+      .stat-num {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--text-light);
+        font-weight: 600;
+      }
+
+      /* Sections */
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding-left: 15px;
+        border-left: 4px solid var(--primary);
+        color: var(--text-dark);
+      }
+
+      /* Cards Grid */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+      .service-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 25px;
+        border: 1px solid var(--glass-border);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        transition: 0.4s;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .service-card.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--primary);
+      }
+
+      /* Ripple effect */
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(214, 40, 40, 0.05);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.6s,
+          height 0.6s;
+        z-index: 0;
+      }
+      .service-card:hover::before {
+        width: 400px;
+        height: 400px;
+      }
+
+      .card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        background: linear-gradient(
+          135deg,
+          rgba(214, 40, 40, 0.1),
+          rgba(244, 196, 48, 0.2)
+        );
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        z-index: 1;
+        transition: 0.3s;
+      }
+      .service-card:hover .card-icon {
+        background: var(--primary);
+        color: white;
+        transform: scale(1.1);
+      }
+      .card-content {
+        z-index: 1;
+        flex-grow: 1;
+      }
+      .card-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 5px;
+      }
+      .card-desc {
+        font-size: 13px;
+        color: var(--text-light);
+        line-height: 1.5;
+      }
+      .card-footer {
+        z-index: 1;
+        margin-top: auto;
+      }
+      .btn-portal {
+        width: 100%;
+        padding: 10px;
+        background: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+      }
+      .btn-portal:hover {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 4px 15px rgba(214, 40, 40, 0.3);
+      }
+
+      /* Trending */
+      .trending-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
+      .trending-tag {
+        padding: 6px 12px;
+        background: rgba(244, 196, 48, 0.15);
+        color: #b58d10;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .trending-tag:hover {
+        background: var(--accent);
+        color: var(--text-dark);
+      }
+
+      /* Floating Action Button */
+      .fab {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        box-shadow: 0 4px 15px rgba(214, 40, 40, 0.4);
+        cursor: pointer;
+        z-index: 999;
+        transition: 0.3s;
+      }
+      .fab:hover {
+        transform: scale(1.1) rotate(15deg);
+      }
+
+      /* Bottom Nav */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 15px 10px;
+        background: rgba(var(--bg-color), 0.95);
+        backdrop-filter: blur(15px);
+        border-top: 1px solid var(--glass-border);
+        z-index: 1000;
+        border-radius: 25px 25px 0 0;
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: var(--text-light);
+        font-size: 12px;
+        gap: 5px;
+        transition: 0.3s;
+      }
+      .nav-item.active {
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .nav-item.active i {
+        transform: translateY(-3px);
+      }
+      .nav-item i {
+        font-size: 20px;
+        transition: 0.3s;
+      }
+      .nav-item:hover {
+        color: var(--primary);
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 28px;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader"><div class="spinner"></div></div>
+
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="dhasboard.html" class="btn-back"
+          ><i class="fa-solid fa-arrow-left"></i
+        ></a>
+        <img
+          src="images/logo.png"
+          alt="Logo"
+          class="logo"
+          onerror="
+            this.src = 'https://cdn-icons-png.flaticon.com/512/8636/8636404.png'
+          "
+        />
+        <div class="nav-title" data-translate="app_title">Vetri Tamil Nadu</div>
+      </div>
+      <div class="nav-right">
+        <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
+          <i
+            class="fa-solid fa-moon"
+            style="color: var(--text-light); font-size: 16px; padding: 0 5px"
+          ></i>
+        </div>
+        <div class="lang-toggle" id="lang-toggle" data-current="en">
+          <div class="lang-slider" id="lang-slider"></div>
+          <div class="lang-btn active" id="lang-en">EN</div>
+          <div class="lang-btn" id="lang-ta">TA</div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- Hero -->
+      <div class="hero-section">
+        <div class="floating-icons">
+          <i class="fa-solid fa-id-card" style="top: 10%; left: 10%"></i>
+          <i class="fa-solid fa-file-contract" style="top: 20%; right: 15%"></i>
+          <i
+            class="fa-solid fa-building-columns"
+            style="bottom: 10%; left: 20%"
+          ></i>
+          <i class="fa-solid fa-users" style="bottom: 20%; right: 10%"></i>
+        </div>
+        <h1 class="hero-title" data-translate="hero_title">
+          Tamil Nadu Citizen Services
+        </h1>
+        <p class="hero-subtitle" data-translate="hero_subtitle">
+          Access essential government services easily
+        </p>
+        <p class="hero-quote" data-translate="hero_quote">
+          "மக்களுக்கு சேவை செய்வதே எங்கள் நோக்கம்"
+        </p>
+
+        <div class="search-container">
+          <i class="fa-solid fa-search"></i>
+          <input
+            type="text"
+            id="searchInput"
+            data-translate-placeholder="search_placeholder"
+            placeholder="Search citizen services..."
+          />
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card glass">
+          <div class="stat-num counter" data-target="150">0</div>
+          <div class="stat-label" data-translate="stat_services">
+            Active Services
+          </div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-num counter" data-target="25000">0</div>
+          <div class="stat-label" data-translate="stat_users">Daily Users</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-num counter" data-target="45">0</div>
+          <div class="stat-label" data-translate="stat_depts">Departments</div>
+        </div>
+      </div>
+
+      <!-- Trending -->
+      <div class="section-title" data-translate="trending">
+        Trending Services
+      </div>
+      <div class="trending-tags">
+        <div
+          class="trending-tag"
+          onclick="
+            document.getElementById('searchInput').value = 'Aadhaar';
+            triggerSearch();
+          "
+        >
+          <i class="fa-solid fa-fire"></i> Aadhaar Update
+        </div>
+        <div
+          class="trending-tag"
+          onclick="
+            document.getElementById('searchInput').value = 'Ration';
+            triggerSearch();
+          "
+        >
+          <i class="fa-solid fa-fire"></i> Smart Ration Card
+        </div>
+        <div
+          class="trending-tag"
+          onclick="
+            document.getElementById('searchInput').value = 'Certificate';
+            triggerSearch();
+          "
+        >
+          <i class="fa-solid fa-fire"></i> Income Certificate
+        </div>
+        <div
+          class="trending-tag"
+          onclick="
+            document.getElementById('searchInput').value = 'Health';
+            triggerSearch();
+          "
+        >
+          <i class="fa-solid fa-fire"></i> CM Health Insurance
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-container" id="filterContainer">
+        <button
+          class="filter-btn active"
+          data-filter="All"
+          data-translate="filter_all"
+        >
+          All
+        </button>
+        <button
+          class="filter-btn"
+          data-filter="Identity Services"
+          data-translate="filter_identity"
+        >
+          Identity Services
+        </button>
+        <button
+          class="filter-btn"
+          data-filter="Welfare Services"
+          data-translate="filter_welfare"
+        >
+          Welfare Services
+        </button>
+        <button
+          class="filter-btn"
+          data-filter="Education"
+          data-translate="filter_education"
+        >
+          Education
+        </button>
+        <button
+          class="filter-btn"
+          data-filter="Healthcare"
+          data-translate="filter_healthcare"
+        >
+          Healthcare
+        </button>
+        <button
+          class="filter-btn"
+          data-filter="Employment"
+          data-translate="filter_employment"
+        >
+          Employment
+        </button>
+        <button
+          class="filter-btn"
+          data-filter="Certificates"
+          data-translate="filter_certificates"
+        >
+          Certificates
+        </button>
+        <button
+          class="filter-btn"
+          data-filter="Transport"
+          data-translate="filter_transport"
+        >
+          Transport
+        </button>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="section-title" data-translate="all_services">
+        Citizen Portals
+      </div>
+      <div class="services-grid" id="servicesGrid">
+        <!-- Populated by JS -->
+      </div>
+    </main>
+
+    <div class="fab" onclick="window.scrollTo(0, 0)">
+      <i class="fa-solid fa-arrow-up"></i>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="dhasboard.html" class="nav-item">
+        <i class="fa-solid fa-house"></i>
+        <span data-translate="nav_home">Home</span>
+      </a>
+      <a href="schemes.html" class="nav-item">
+        <i class="fa-solid fa-file-contract"></i>
+        <span data-translate="nav_schemes">Schemes</span>
+      </a>
+      <a href="#" class="nav-item active">
+        <i class="fa-solid fa-users-viewfinder"></i>
+        <span data-translate="nav_services">Services</span>
+      </a>
+      <a href="id-card.html" class="nav-item">
+        <i class="fa-solid fa-id-badge"></i>
+        <span data-translate="nav_id">ID Card</span>
+      </a>
+    </div>
+
+    <script>
+      const translations = {
+        en: {
+          app_title: "Vetri Tamil Nadu",
+          hero_title: "Tamil Nadu Citizen Services",
+          hero_subtitle: "Access essential government services easily",
+          hero_quote: '"மக்களுக்கு சேவை செய்வதே எங்கள் நோக்கம்"',
+          search_placeholder: "Search citizen services...",
+          stat_services: "Active Services+",
+          stat_users: "Daily Users+",
+          stat_depts: "Departments",
+          trending: "Trending Services",
+          all_services: "Citizen Portals",
+          filter_all: "All",
+          filter_identity: "Identity Services",
+          filter_welfare: "Welfare Services",
+          filter_education: "Education",
+          filter_healthcare: "Healthcare",
+          filter_employment: "Employment",
+          filter_certificates: "Certificates",
+          filter_transport: "Transport",
+          nav_home: "Home",
+          nav_schemes: "Schemes",
+          nav_services: "Services",
+          nav_id: "ID Card",
+          open_portal: "Open Portal",
+        },
+        ta: {
+          app_title: "வெற்றி தமிழ்நாடு",
+          hero_title: "தமிழ்நாடு குடிமக்கள் சேவைகள்",
+          hero_subtitle: "அத்தியாவசிய அரசு சேவைகளை எளிதாக அணுகுங்கள்",
+          hero_quote: '"மக்களுக்கு சேவை செய்வதே எங்கள் நோக்கம்"',
+          search_placeholder: "குடிமக்கள் சேவைகளைத் தேடுங்கள்...",
+          stat_services: "சேவைகள்+",
+          stat_users: "பயனர்கள்+",
+          stat_depts: "துறைகள்",
+          trending: "பிரபலமான சேவைகள்",
+          all_services: "குடிமக்கள் இணையதளங்கள்",
+          filter_all: "அனைத்தும்",
+          filter_identity: "அடையாள சேவைகள்",
+          filter_welfare: "நலத்திட்ட சேவைகள்",
+          filter_education: "கல்வி",
+          filter_healthcare: "சுகாதாரம்",
+          filter_employment: "வேலைவாய்ப்பு",
+          filter_certificates: "சான்றிதழ்கள்",
+          filter_transport: "போக்குவரத்து",
+          nav_home: "முகப்பு",
+          nav_schemes: "திட்டங்கள்",
+          nav_services: "சேவைகள்",
+          nav_id: "அடையாள அட்டை",
+          open_portal: "திறக்க",
+        },
+      };
+
+      const servicesData = [
+        {
+          id: 1,
+          title_en: "Tamil Nadu e-Sevai",
+          title_ta: "தமிழ்நாடு இ-சேவை",
+          desc_en:
+            "Access state government certificates, revenue services and more.",
+          desc_ta: "மாநில அரசு சான்றிதழ்கள் மற்றும் வருவாய் சேவைகளை அணுகவும்.",
+          link: "https://www.tnesevai.tn.gov.in",
+          icon: "fa-desktop",
+          category: "Certificates",
+        },
+        {
+          id: 2,
+          title_en: "TNPDS Smart Ration Card",
+          title_ta: "TNPDS ஸ்மார்ட் ரேஷன் கார்டு",
+          desc_en: "Apply, update and check status of Smart Ration Cards.",
+          desc_ta:
+            "ஸ்மார்ட் ரேஷன் கார்டுகளை விண்ணப்பிக்க, புதுப்பிக்க மற்றும் நிலையை அறிய.",
+          link: "https://www.tnpds.gov.in",
+          icon: "fa-address-card",
+          category: "Welfare Services",
+        },
+        {
+          id: 3,
+          title_en: "Aadhaar Services",
+          title_ta: "ஆதார் சேவைகள்",
+          desc_en:
+            "Download Aadhaar, update details, and check verification status.",
+          desc_ta:
+            "ஆதார் பதிவிறக்கம், விவரங்களை புதுப்பித்தல் மற்றும் சரிபார்ப்பு நிலை.",
+          link: "https://myaadhaar.uidai.gov.in",
+          icon: "fa-fingerprint",
+          category: "Identity Services",
+        },
+        {
+          id: 4,
+          title_en: "PAN Card Services",
+          title_ta: "பான் கார்டு சேவைகள்",
+          desc_en:
+            "Apply for new PAN card, update details or reprint card online.",
+          desc_ta:
+            "புதிய பான் கார்டு விண்ணப்பிக்க, விவரங்களை மாற்ற அல்லது மறுபதிப்பு செய்ய.",
+          link: "https://www.onlineservices.nsdl.com",
+          icon: "fa-id-card-clip",
+          category: "Identity Services",
+        },
+        {
+          id: 5,
+          title_en: "Driving License Services",
+          title_ta: "ஓட்டுநர் உரிமச் சேவைகள்",
+          desc_en: "Apply for Learner's or Driving License via Parivahan Sewa.",
+          desc_ta:
+            "பரிவாஹன் மூலம் ஓட்டுநர் உரிமம் அல்லது பழகுநர் உரிமத்திற்கு விண்ணப்பிக்க.",
+          link: "https://parivahan.gov.in",
+          icon: "fa-car",
+          category: "Transport",
+        },
+        {
+          id: 6,
+          title_en: "Passport Services",
+          title_ta: "பாஸ்போர்ட் சேவைகள்",
+          desc_en:
+            "Apply for fresh passport, reissue and check appointment availability.",
+          desc_ta:
+            "புதிய பாஸ்போர்ட் விண்ணப்பிக்க மற்றும் முன்பதிவு நிலையைச் சரிபார்க்க.",
+          link: "https://www.passportindia.gov.in",
+          icon: "fa-passport",
+          category: "Identity Services",
+        },
+        {
+          id: 7,
+          title_en: "Voter ID Services",
+          title_ta: "வாக்காளர் அடையாள அட்டை",
+          desc_en:
+            "Register to vote, update voter details, and download e-EPIC.",
+          desc_ta:
+            "வாக்காளராகப் பதிவு செய்ய, விவரங்களைப் புதுப்பிக்க மற்றும் e-EPIC பதிவிறக்க.",
+          link: "https://voters.eci.gov.in",
+          icon: "fa-check-to-slot",
+          category: "Identity Services",
+        },
+        {
+          id: 8,
+          title_en: "Birth Certificate Services",
+          title_ta: "பிறப்புச் சான்றிதழ் சேவைகள்",
+          desc_en: "Search and download Birth & Death certificates officially.",
+          desc_ta:
+            "பிறப்பு மற்றும் இறப்பு சான்றிதழ்களைத் தேடி அதிகாரப்பூர்வமாகப் பதிவிறக்க.",
+          link: "https://crstn.org",
+          icon: "fa-baby",
+          category: "Certificates",
+        },
+        {
+          id: 9,
+          title_en: "Income Certificate Services",
+          title_ta: "வருமானச் சான்றிதழ் சேவைகள்",
+          desc_en:
+            "Apply for income certificate online through e-Sevai portal.",
+          desc_ta:
+            "இ-சேவை போர்டல் மூலம் வருமானச் சான்றிதழுக்கு ஆன்லைனில் விண்ணப்பிக்க.",
+          link: "https://www.tnesevai.tn.gov.in",
+          icon: "fa-file-invoice-dollar",
+          category: "Certificates",
+        },
+        {
+          id: 10,
+          title_en: "Employment Exchange",
+          title_ta: "வேலைவாய்ப்பு அலுவலகம்",
+          desc_en:
+            "Register and renew employment exchange profile for TN govt jobs.",
+          desc_ta:
+            "தமிழக அரசு வேலைகளுக்கு வேலைவாய்ப்பு அலுவலக பதிவைப் புதுப்பிக்க.",
+          link: "https://www.tnvelaivaaippu.gov.in",
+          icon: "fa-briefcase",
+          category: "Employment",
+        },
+        {
+          id: 11,
+          title_en: "CM Health Insurance Scheme",
+          title_ta: "முதலமைச்சரின் மருத்துவ காப்பீடு",
+          desc_en: "Check eligibility and empanelled hospitals under CMCHIS.",
+          desc_ta:
+            "முதலமைச்சரின் மருத்துவக் காப்பீட்டுத் திட்டத்தின் தகுதி மற்றும் மருத்துவமனைகள்.",
+          link: "https://www.cmchistn.com",
+          icon: "fa-notes-medical",
+          category: "Healthcare",
+        },
+        {
+          id: 12,
+          title_en: "National Scholarship Portal",
+          title_ta: "தேசிய உதவித்தொகை தளம்",
+          desc_en:
+            "Apply for educational scholarships and track application status.",
+          desc_ta:
+            "கல்வி உதவித்தொகைக்கு விண்ணப்பிக்க மற்றும் விண்ணப்பத்தின் நிலையைக் காண.",
+          link: "https://scholarships.gov.in",
+          icon: "fa-graduation-cap",
+          category: "Education",
+        },
+      ];
+
+      let currentLang = localStorage.getItem("app_lang") || "en";
+      let currentFilter = "All";
+
+      // Loader
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("loader").style.opacity = "0";
+          setTimeout(() => {
+            document.getElementById("loader").style.display = "none";
+          }, 500);
+        }, 800);
+      });
+
+      // Theme Toggle
+      function toggleTheme() {
+        const body = document.documentElement;
+        const currentTheme = body.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        const icon = document.querySelector(".theme-toggle i");
+        if (newTheme === "dark") {
+          icon.classList.remove("fa-moon");
+          icon.classList.add("fa-sun");
+        } else {
+          icon.classList.remove("fa-sun");
+          icon.classList.add("fa-moon");
+        }
+      }
+
+      // Initialize Theme
+      if (localStorage.getItem("theme") === "dark") {
+        toggleTheme();
+      }
+
+      // Counter Animation
+      const counters = document.querySelectorAll(".counter");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const target = +entry.target.getAttribute("data-target");
+              const updateCount = () => {
+                const current = +entry.target.innerText;
+                const inc = target / 50;
+                if (current < target) {
+                  entry.target.innerText = Math.ceil(current + inc);
+                  setTimeout(updateCount, 20);
+                } else {
+                  entry.target.innerText = target.toLocaleString();
+                }
+              };
+              updateCount();
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      counters.forEach((counter) => observer.observe(counter));
+
+      // Render Cards
+      function renderCards(searchQuery = "") {
+        const grid = document.getElementById("servicesGrid");
+        grid.innerHTML = "";
+
+        let filtered = servicesData;
+
+        // Category Filter
+        if (currentFilter !== "All") {
+          filtered = filtered.filter((item) => item.category === currentFilter);
+        }
+
+        // Search Filter
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          filtered = filtered.filter(
+            (item) =>
+              item[`title_${currentLang}`].toLowerCase().includes(query) ||
+              item[`desc_${currentLang}`].toLowerCase().includes(query),
+          );
+        }
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-light);">No services found.</div>`;
+          return;
+        }
+
+        filtered.forEach((service, index) => {
+          const card = document.createElement("div");
+          card.className = "service-card glass";
+          card.innerHTML = `
+                    <div class="card-icon"><i class="fa-solid ${service.icon}"></i></div>
+                    <div class="card-content">
+                        <div class="card-title">${service[`title_${currentLang}`]}</div>
+                        <div class="card-desc">${service[`desc_${currentLang}`]}</div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${service.link}" target="_blank" class="btn-portal">
+                            ${translations[currentLang].open_portal} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                `;
+          grid.appendChild(card);
+
+          // Scroll Reveal Animation
+          setTimeout(() => {
+            card.classList.add("show");
+          }, index * 100);
+        });
+      }
+
+      function triggerSearch() {
+        renderCards(document.getElementById("searchInput").value);
+      }
+
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        renderCards(e.target.value);
+      });
+
+      // Filtering
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          e.target.classList.add("active");
+          currentFilter = e.target.getAttribute("data-filter");
+          renderCards(document.getElementById("searchInput").value);
+        });
+      });
+
+      // Language Translation
+      const langToggle = document.getElementById("lang-toggle");
+      const langEnBtn = document.getElementById("lang-en");
+      const langTaBtn = document.getElementById("lang-ta");
+
+      function updateLanguage(lang) {
+        langToggle.setAttribute("data-current", lang);
+        if (lang === "ta") {
+          langTaBtn.classList.add("active");
+          langEnBtn.classList.remove("active");
+        } else {
+          langEnBtn.classList.add("active");
+          langTaBtn.classList.remove("active");
+        }
+
+        document.querySelectorAll("[data-translate]").forEach((el) => {
+          const key = el.getAttribute("data-translate");
+          if (translations[lang][key]) el.innerText = translations[lang][key];
+        });
+
+        document
+          .querySelectorAll("[data-translate-placeholder]")
+          .forEach((el) => {
+            const key = el.getAttribute("data-translate-placeholder");
+            if (translations[lang][key])
+              el.setAttribute("placeholder", translations[lang][key]);
+          });
+
+        currentLang = lang;
+        renderCards(document.getElementById("searchInput").value);
+        localStorage.setItem("app_lang", lang);
+      }
+
+      langToggle.addEventListener("click", () => {
+        currentLang = currentLang === "en" ? "ta" : "en";
+        updateLanguage(currentLang);
+      });
+
+      // Initialize
+      updateLanguage(currentLang);
+    </script>
+  </body>
+</html>

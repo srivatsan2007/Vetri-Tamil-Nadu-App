@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Vetri Tamil Nadu - Login</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            background-color: #000;
+            background-image: 
+                linear-gradient(135deg, rgba(214, 40, 40, 0.2), rgba(0, 0, 0, 0.4)),
+                url('images/vijay.png');
+            background-size: cover, contain;
+            background-position: center, center top;
+            background-repeat: no-repeat, no-repeat;
+            background-attachment: fixed, fixed;
+        }
+
+        /* MAIN CARD */
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 35px 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        /* LOGO */
+
+        .logo {
+
+            width: 90px;
+
+            margin-bottom: 15px;
+        }
+
+        /* TITLE */
+
+        h1 {
+            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .quote {
+            color: #ffe9a9;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .active-tab {
+            background: #F4C430;
+            color: #1E1E1E;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-group input:focus {
+            border-color: #F4C430;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* BUTTON */
+
+        .auth-btn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background: linear-gradient(135deg,
+                    #D62828,
+                    #ff4d4d);
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            margin-top: 10px;
+        }
+
+        .auth-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 20px rgba(214, 40, 40, 0.3);
+        }
+
+        /* EXTRA TEXT */
+
+        .bottom-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #eeeeee;
+        }
+
+        .bottom-text a {
+            color: #F4C430;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:600px) {
+
+            .auth-container {
+
+                padding: 30px 20px;
+            }
+
+            h1 {
+
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <!-- LOGO -->
+        <img src="images/logo.png" class="logo">
+
+        <!-- TITLE -->
+        <h1>Vetri Tamil Nadu</h1>
+
+        <!-- TAMIL QUOTE -->
+        <p class="quote">
+            “வெற்றி நிச்சயம் முயற்சி தொடரும் வரை.”
+        </p>
+
+        <!-- LOGIN / REGISTER TABS -->
+        <div class="tabs">
+
+            <div class="tab active-tab">
+                Login
+            </div>
+
+            <div class="tab">
+                <a href="register.html">
+                    Register
+                </a>
+            </div>
+
+        </div>
+
+        <!-- EMAIL -->
+        <div class="input-group">
+
+            <label>Email Address</label>
+
+            <input type="email" id="login-email" placeholder="Enter your email">
+
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="input-group">
+
+            <label>Password</label>
+
+            <input type="password" id="login-password" placeholder="Enter your password">
+
+        </div>
+
+        <!-- BUTTON -->
+        <button class="auth-btn" id="loginBtn">
+
+            Login
+
+        </button>
+
+        <!-- BOTTOM TEXT -->
+        <div class="bottom-text">
+
+            Don't have an account?
+            <a href="register.html">Register</a>
+
+        </div>
+
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById("loginBtn");
+        loginBtn.addEventListener("click", () => {
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            if (!email || !password) {
+                alert("Please enter both email and password");
+                return;
+            }
+
+            fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    localStorage.setItem("currentUser", JSON.stringify(data.user));
+                    window.location.href = "dhasboard.html";
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('An error occurred during login.');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
